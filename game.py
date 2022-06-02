@@ -1,6 +1,8 @@
 import requests
 import random
 
+import tkinter as tk
+
 
 
 def main():
@@ -168,9 +170,24 @@ def replay():
 
         quit()
 
+def GUI():
+
+    #Create basic elements
+    root = tk.Tk()
+    root.resizable(False,False)
+    canvas = tk.Canvas(root, height=720, width=1280, bg="#616A6B")
+    canvas.pack()
+    canvas.grid(columnspan=9, rowspan=16)
+
+    welcomeMSG = "Welcome to Hangman, press the start button to play!"
+    welcomeLabel = tk.Label(root, text=welcomeMSG, font="Arial", bg="#616A6B")
+    welcomeLabel.grid(columnspan=4, column=1, row=1)
+
+    root.mainloop() 
+
     
 
-main()
+GUI()
 
 
 
