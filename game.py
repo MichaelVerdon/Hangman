@@ -193,8 +193,8 @@ def GUI():
     root.mainloop() 
 
     
-main()
-#GUI()
+#main()
+GUI()
 
 
 
