@@ -1,8 +1,6 @@
 import requests
 import random
 
-import tkinter as tk
-
 
 
 def main():
@@ -109,7 +107,7 @@ def makeGuess(lives, guessProgress):
 
         if (guess in chosenLetters):
 
-            print("You have already guessed this word!")
+            print("You have already guessed this letter!")
 
             print(guessProgress)
 
@@ -170,35 +168,4 @@ def replay():
 
         quit()
 
-def GUI():
-
-    #Create basic elements
-    root = tk.Tk()
-    root.resizable(False,False)
-    root.title("Hangman")
-    canvas = tk.Canvas(root, height=720, width=1280, bg="#616A6B")
-    canvas.grid(columnspan=9, rowspan=16)
-    bg_image = tk.PhotoImage(file='assets\Background_00000.png')
-    bg_label = tk.Label(image=bg_image)
-    bg_label.place(x=0, y=0, relwidth=1, relheight=1)
-    root.iconbitmap('assets\smiling-face-with-horns.ico')
-
-    canvas.pack()
-
-    #Create on screen elements
-    #welcomeMSG = "Welcome to Hangman, press the start button to play!"
-    #welcomeLabel = tk.Label(root, text=welcomeMSG, font="Arial", bg="#616A6B")
-    #welcomeLabel.grid(columnspan=4, column=1, row=1)
-
-    root.mainloop() 
-
-    
-#main()
-GUI()
-
-
-
-
-
-
-
+main()
