@@ -16,7 +16,7 @@ def main():
     #Acquire variables 
     chosenLetters = []
     gameWord = chooseWord()
-    guessProgress = ["_"] * len(gameWord)
+    guessProgress = "_" * len(gameWord)
 
     gameEnd = False
 
