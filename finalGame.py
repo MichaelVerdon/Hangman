@@ -1,43 +1,31 @@
 import tkinter as tk
-import requests
-import random
+import randomword
 
 easyLives = 14
 mediumLives = 10
 hardLives = 7
 lolLives= 4
 
-def chooseWord():
+def startButtonPress(lives):
 
-    #Initialises a webpage that is a list of words
-    words_src = "https://www.mit.edu/~ecprice/wordlist.10000"
-    randomWord = ""
+    destroyDifficultyButtons()
+    buildGameElements(lives)
 
-    #Only picks words with a length of at least 6
-    while (len(randomWord) < 6):
+def buildGameElements(lives):
 
-        #request to get words from webpage
-        response = requests.get(words_src)
-
-        #Get the word list and parse by newlines
-        wordsList = response.content.splitlines()
-        
-        #Pick a random word 
-        randomWord = random.choice(wordsList).lower().decode("utf-8")
-    
-    return randomWord
-
-
-def startButtonPress(button):
-
-    button.destroy()
-    buildGameElements()
-
-def buildGameElements():
-
-    textEntry = tk.Entry(root, text="Enter a letter", font="Arial")
+    textEntry = tk.Entry(root, text="Enter a letter", font="Arial", bd=4)
     textEntry.place(relx=0.4,rely=0.5)
-    submitButton = tk.Button(root, text="Submit", font="Arial", bd=4)        
+    submitButton = tk.Button(root, text="Submit", font="Arial", bd=4)
+    submitButton.place(relx=0.45,rely=0.6)
+    livesLabel = tk.Label(root, text="Lives: " + str(lives), font="Arial", bd=4)
+    livesLabel.place(relx=0.4,rely=0.2)
+
+def destroyDifficultyButtons():
+
+    easyButton.destroy()
+    mediumButton.destroy()
+    hardButton.destroy()
+    lolButton.destroy()        
 
 screen_width = 1280
 screen_height = 720
@@ -58,14 +46,17 @@ bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 canvas.pack()
 
 #Difficulty mode buttons
-easyButton = tk.Button(root, text='Easy', font="Arial", bd=4, command=lambda: startButtonPress())
-easyButton.place(relx=0.4, rely=0.5)
-mediumButton = tk.Button(root, text='Medium', font="Arial", bd=4, command=lambda: startButtonPress())
-mediumButton.place(relx=0.5, rely=0.5)
-hardButton = tk.Button(root, text='Hard', font="Arial", bd=4, command=lambda: startButtonPress())
-hardButton.place(relx=0.6, rely=0.5)
-lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress())
-lolButton.place(relx=0.7, rely=0.5)
+easyButton = tk.Button(root, text='Easy', font="Arial", bd=4, command=lambda: startButtonPress(easyLives))
+easyButton.place(relx=0.3, rely=0.5)
+
+mediumButton = tk.Button(root, text='Medium', font="Arial", bd=4, command=lambda: startButtonPress(mediumLives))
+mediumButton.place(relx=0.4, rely=0.5)
+
+hardButton = tk.Button(root, text='Hard', font="Arial", bd=4, command=lambda: startButtonPress(hardLives))
+hardButton.place(relx=0.5, rely=0.5)
+
+lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress(lolLives))
+lolButton.place(relx=0.6, rely=0.5)
 
 #Create on screen elements
     
