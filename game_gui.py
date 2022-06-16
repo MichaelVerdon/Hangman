@@ -21,15 +21,51 @@ def clickedSubmit(game, guess):
         gameStatus = game.checkGameStatus()
         errorLabel["text"] = gameStatus[1]
 
+        #Destroy submit button to stop more submits
         submitButton.destroy()
-        
+
+        #Call function to ask if user wants to restart game
+        restartGameOption()
 
 
-        
+def restartGameOption():
+
+    global restartLabel
+    restartLabel = tk.Label(root, text="Would you like to play again?", font="Arial", bd=4)
+    restartLabel.place(relx=0.3, rely=0.6)
+
+    global yesButton
+    yesButton = tk.Button(root, text="Go on son!", font="Arial", command=lambda: restartGame())
+    yesButton.place(relx=0.3, rely=0.7)
+
+    global noButton
+    noButton = tk.Button(root, text="I've had enough!", font="Arial", command=lambda: quit())
+    noButton.place(relx=0.5, rely=0.7)
+
+#Restarts the game
+def restartGame():
+
+    #Destroys all game elements/widgets
+    destroyGameElements()
+    #Calls the difficulty selection function
+    selectDifficulty()
+
+#Widget genocide occuring here
+def destroyGameElements():
+
+    textEntry.destroy()
+    submitButton.destroy()
+    livesLabel.destroy()
+    errorLabel.destroy()
+    guessLabel.destroy()
+    restartLabel.destroy()
+    yesButton.destroy()
+    noButton.destroy()
 
 def buildGameElements(game):
 
     #Enter letter widget
+    global textEntry
     textEntry = tk.Entry(root, text="Enter a letter", font="Arial", bd=4)
     textEntry.place(relx=0.4,rely=0.5)
 
@@ -81,7 +117,6 @@ root.iconbitmap('assets\smiling-face-with-horns.ico')
 
 #Background elements
 canvas = tk.Canvas(root, height=screen_height, width=screen_width, bg="#616A6B")
-canvas.grid(columnspan=18, rowspan=32)
 
 bg_image = tk.PhotoImage(file='assets\Background_00000.png')
 bg_label = tk.Label(image=bg_image)
