@@ -12,6 +12,7 @@ def game(lives):
     global playerLives
     global gameWord
     global lettersGuessed
+    global guessProgress
     
     #Set player lives and make it global
     playerLives = lives
@@ -26,7 +27,7 @@ def game(lives):
     guessLabel = tk.Label(root, font="Arial", bd=4, text=guessProgress)
     guessLabel.place(relx=0.5,rely=0.2)
 
-def submitGuess(guess, guessProgress):
+def submitGuess(guess):
 
     if (verifyGuess(guess)):
 
@@ -35,7 +36,11 @@ def submitGuess(guess, guessProgress):
             time.sleep(2)
             errorLabel["text"] = "Enter a letter A-Z|a-z"
 
-        elif (guess not in )
+        elif (guess not in guessProgress):
+            lettersGuessed.append(guess)
+            playerLives = playerLives - 1
+
+
 
 
 def verifyGuess(guess):
@@ -61,7 +66,7 @@ def buildGameElements(lives):
 
     #Submit guess widget
     global submitButton
-    submitButton = tk.Button(root, text="Submit", font="Arial", bd=4)
+    submitButton = tk.Button(root, text="Submit", font="Arial", bd=4, command=lambda: submitGuess(textEntry.get()))
     submitButton.place(relx=0.45,rely=0.6)
 
     #Display lives widget
