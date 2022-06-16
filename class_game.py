@@ -54,11 +54,15 @@ class game:
 
                 self.guessedLetters.append(guess)
 
+                #Treat as a list and perform list comprehension to gather all indices of a correct guess to update
                 asList = list(self.guessProgress)
                 indices = [i for i, letter in enumerate(self.gameWord) if letter == guess]
+
                 for index in indices:
                     asList[index] = guess
+                #Updates the guess progress
                 guessProgress = "".join(asList)
+
                 self.setGuessProgress(guessProgress)
                 
                 return ("Lives: " + str(self.lives)), self.guessProgress, "You guessed a letter correctly!"
@@ -66,15 +70,16 @@ class game:
 
             return ("Lives: " + str(self.lives)), self.guessProgress, "Input not valid, Enter a letter A-Z|a-z"
 
+    #Check that the game is won/lost or still going returning an appropiate message
     def checkGameStatus(self):
 
         if (self.guessProgress == self.gameWord):
 
-            return True, "You Won"
+            return True, "You Won!, you have a use for something after all...."
 
         elif (self.lives <= 0):
 
-            return True, ("You Lost, word was: " + self.gameWord)
+            return True, ("You Lost, the word your feeble mind failed to compute was: " + self.gameWord)
 
         else:
 

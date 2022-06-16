@@ -16,9 +16,14 @@ def clickedSubmit(game, guess):
     guessLabel["text"] = gameInfo[1]
     errorLabel["text"] = gameInfo[2]
 
-    if (game.checkGameStatus()):
+    if (game.checkGameStatus()[0]):
 
         gameStatus = game.checkGameStatus()
+        errorLabel["text"] = gameStatus[1]
+
+        submitButton.destroy()
+        
+
 
         
 
@@ -53,6 +58,7 @@ def startButtonPress(lives):
 
     destroyDifficultyButtons()
     game = class_game.game(lives)
+    print(game.gameWord)
     buildGameElements(game)
 
 # Destroy difficulty buttons after difficulty is selected
