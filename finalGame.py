@@ -1,19 +1,18 @@
 import tkinter as tk
 import randomword
-import time
 
 easyLives = 14
 mediumLives = 10
 hardLives = 7
-lolLives= 4
-
+lolLives = 4
+guessProgress = ""
+        
 def game(lives):
 
     global playerLives
     global gameWord
     global lettersGuessed
-    global guessProgress
-    
+
     #Set player lives and make it global
     playerLives = lives
 
@@ -24,49 +23,13 @@ def game(lives):
     #Used to check which letters have been guessed
     lettersGuessed = []
 
-    guessLabel = tk.Label(root, font="Arial", bd=4, text=guessProgress)
-    guessLabel.place(relx=0.5,rely=0.2)
-
-def submitGuess(guess):
-
-    if (verifyGuess(guess)):
-
-        if (guess in guessProgress):
-            errorLabel["text"] = "You have already guessed this letter!"
-            time.sleep(2)
-            errorLabel["text"] = "Enter a letter A-Z|a-z"
-
-        elif (guess not in guessProgress):
-            lettersGuessed.append(guess)
-            playerLives = playerLives - 1
-
-
-
-
-def verifyGuess(guess):
-
-    if (guess.isalpha()):
-        return True
-    else:
-        errorLabel["text"] = "Error, please enter a letter A-Z|a-z"
-        time.sleep(2)
-        errorLabel["text"] = "Enter a letter A-Z|a-z"
-        return False
-
-def startButtonPress(lives):
-
-    destroyDifficultyButtons()
-    buildGameElements(lives)
-
-def buildGameElements(lives):
-
     #Enter letter widget
     textEntry = tk.Entry(root, text="Enter a letter", font="Arial", bd=4)
     textEntry.place(relx=0.4,rely=0.5)
 
     #Submit guess widget
     global submitButton
-    submitButton = tk.Button(root, text="Submit", font="Arial", bd=4, command=lambda: submitGuess(textEntry.get()))
+    submitButton = tk.Button(root, text="Submit", font="Arial", bd=4, command=lambda: submitGuess(textEntry.get(), playerLives))
     submitButton.place(relx=0.45,rely=0.6)
 
     #Display lives widget
@@ -79,9 +42,46 @@ def buildGameElements(lives):
     errorLabel = tk.Label(root, text="Enter a letter A-Z|a-z", font="Arial", bd=4)
     errorLabel.place(relx=0.4,rely=0.25)
 
-    #Start game with lives selected
-    game(lives)
+    #Shows guessing progress
+    global guessLabel
+    guessLabel = tk.Label(root, font="Arial", bd=4, text=guessProgress)
+    guessLabel.place(relx=0.5,rely=0.2)
 
+def submitGuess(guess, lives):
+
+    if (verifyGuess(guess)):
+
+        if (guess in lettersGuessed):
+
+            errorLabel["text"] = "You have already guessed this letter!"
+
+        elif (guess not in gameWord):
+            
+            lettersGuessed.append(guess)
+            lives -= 1
+
+        else:
+            lettersGuessed.append(guess)
+
+            asList = list(guessProgress)
+            indices = [i for i, letter in enumerate(gameWord) if letter == guess]
+            for index in indices:
+                asList[index] = guess
+            guessProgress = "".join(asList)
+            guessLabel["text"] = guessProgress
+
+def verifyGuess(guess):
+
+    if (guess.isalpha()):
+        return True
+    else:
+        errorLabel["text"] = "Error, please enter a letter A-Z|a-z"
+        return False
+
+def startButtonPress(lives):
+
+    destroyDifficultyButtons()
+    game(lives)
 
 # Destroy difficulty buttons after difficulty is selected
 def destroyDifficultyButtons():
@@ -111,7 +111,7 @@ bg_label.place(x=0, y=0, relwidth=1, relheight=1)
     
 canvas.pack()
 
-#Difficulty mode buttons###########################################################################################
+#Difficulty mode buttons
 easyButton = tk.Button(root, text='Easy', font="Arial", bd=4, command=lambda: startButtonPress(easyLives))
 easyButton.place(relx=0.3, rely=0.5)
 
@@ -123,6 +123,5 @@ hardButton.place(relx=0.5, rely=0.5)
 
 lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress(lolLives))
 lolButton.place(relx=0.6, rely=0.5)
-###################################################################################################################
 
 root.mainloop()
