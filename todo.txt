@@ -1,3 +1,4 @@
+- Format strings with fstrings
 - Show guessed letters array on screen
 - Exception Handling
 - Music start, stop and volume slider (connect to music live stream)
