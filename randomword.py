@@ -20,7 +20,7 @@ def chooseWord():
             #Pick a random word 
             randomWord = random.choice(wordsList).lower().decode("utf-8")
 
-    except TimeoutError:
+    except ConnectionRefusedError:
 
         print("Make sure you have wifi connection")
     
