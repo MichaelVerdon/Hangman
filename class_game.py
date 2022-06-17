@@ -48,7 +48,7 @@ class game:
             elif (guess not in self.gameWord):
 
                 self.loseLife()
-                return ("Lives: " + str(self.lives)) , self.guessProgress, "Enter a letter A-Z|a-z"
+                return ("Lives: " + str(self.lives)) , self.guessProgress, "Wrong guess!"
 
             else:
 
@@ -83,7 +83,7 @@ class game:
 
         else:
 
-            False
+            False, ""
 
 
 
