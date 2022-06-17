@@ -12,14 +12,19 @@ def clickedSubmit(game, guess):
     #lives, guessprogress, any error or messages to index and
     #update the gui information
     gameInfo = game.makeGuess(guess)
-    livesLabel["text"] = gameInfo[0]
-    guessLabel["text"] = gameInfo[1]
-    errorLabel["text"] = gameInfo[2]
+    currentLives, guessProgress, gameMessage = gameInfo
+    livesLabel["text"] = currentLives
+    guessLabel["text"] = guessProgress
+    errorLabel["text"] = gameMessage
 
-    if (game.checkGameStatus()[0]):
+    #gameStatus = game.checkGameStatus() None object errors :(
+    #gameEnd, endMessage = gameStatus
+
+    #Return true if game is over
+    if (game.checkGameStatus()):
 
         gameStatus = game.checkGameStatus()
-        errorLabel["text"] = gameStatus[1]
+        errorLabel["text"] = gameStatus[1] #Index game message, tuple unpacking worked too but kept giving none object errors.
 
         #Destroy submit button to stop more submits
         submitButton.destroy()
