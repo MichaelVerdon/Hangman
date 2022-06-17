@@ -3,4 +3,4 @@
 - Exception Handling
 - Music start, stop and volume slider (connect to music live stream)
 - Win rate file saving for each difficulty
-- Optional: global leaderboards with winrate
+- Optional: global leaderboards with winrate :)
