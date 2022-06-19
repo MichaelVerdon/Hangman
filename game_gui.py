@@ -56,7 +56,7 @@ def restartGame():
     #Destroys all game elements/widgets
     destroyGameElements()
     #Calls the difficulty selection function
-    selectDifficulty()
+    main()
 
 
 #Widget genocide occuring here
@@ -166,7 +166,12 @@ def selectDifficulty():
     lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress(lolLives))
     lolButton.place(relx=0.6, rely=0.5)
 
-selectDifficulty()
+def main():
+
+    selectDifficulty()
+
+if __name__ == "__main__":
+
+    main()
+
 root.mainloop()
-
-
