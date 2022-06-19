@@ -35,6 +35,7 @@ def clickedSubmit(game, guess):
 
 def restartGameOption():
 
+    #Create restart options
     global restartLabel
     restartLabel = tk.Label(root, text="Would you like to play again?", font="Arial", bd=4)
     restartLabel.place(relx=0.3, rely=0.6)
