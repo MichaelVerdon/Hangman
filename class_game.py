@@ -1,5 +1,3 @@
-from operator import truediv
-import tkinter as tk
 import randomword
 
 class game:
