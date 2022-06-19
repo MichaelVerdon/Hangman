@@ -16,6 +16,7 @@ def clickedSubmit(game, guess):
     livesLabel["text"] = currentLives
     guessLabel["text"] = guessProgress
     errorLabel["text"] = gameMessage
+    guessedLettersLabel["text"] = game.guessedLetters
 
     #gameStatus = game.checkGameStatus() None object errors :(
     #gameEnd, endMessage = gameStatus
@@ -48,6 +49,7 @@ def restartGameOption():
     noButton = tk.Button(root, text="I've had enough!", font="Arial", command=lambda: quit())
     noButton.place(relx=0.5, rely=0.7)
 
+
 #Restarts the game
 def restartGame():
 
@@ -55,6 +57,7 @@ def restartGame():
     destroyGameElements()
     #Calls the difficulty selection function
     selectDifficulty()
+
 
 #Widget genocide occuring here
 def destroyGameElements():
@@ -67,6 +70,9 @@ def destroyGameElements():
     restartLabel.destroy()
     yesButton.destroy()
     noButton.destroy()
+    guessedLettersLabel.destroy()
+    guessedLettersIndicator.destroy()
+
 
 def buildGameElements(game):
 
@@ -95,10 +101,20 @@ def buildGameElements(game):
     guessLabel = tk.Label(root, font="Arial", bd=4, text=game.guessProgress)
     guessLabel.place(relx=0.5,rely=0.2)
 
+    #Shows guessed letters
+    global guessedLettersLabel
+    guessedLettersLabel = tk.Label(root, font="Arial", bd=4, text=game.guessedLetters)
+    guessedLettersLabel.place(relx=0.4,rely=0.4)
+
+    #Shows label indicating guessed letters
+    global guessedLettersIndicator
+    guessedLettersIndicator = tk.Label(root, font="Arial", bd=4, text="Guessed Letters:")
+    guessedLettersIndicator.place(relx=0.25,rely=0.4)
 
 def startButtonPress(lives):
 
     destroyDifficultyButtons()
+    global game
     game = class_game.game(lives)
     print(game.gameWord)
     buildGameElements(game)
@@ -152,3 +168,5 @@ def selectDifficulty():
 
 selectDifficulty()
 root.mainloop()
+
+

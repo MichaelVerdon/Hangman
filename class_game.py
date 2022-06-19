@@ -7,7 +7,7 @@ class game:
         self.lives = lives
         self.gameWord = randomword.chooseWord() #Using randonword.py to obtain a randomword.
         self.guessProgress = "_" * len(self.gameWord)
-        self.guessedLetters = [""]
+        self.guessedLetters = []
 
     #Functions to change the variables of the game
     def loseLife(self):
@@ -45,6 +45,7 @@ class game:
 
             elif (guess not in self.gameWord):
 
+                self.guessedLetters.append(guess)
                 self.loseLife()
                 return ("Lives: " + str(self.lives)) , self.guessProgress, "Wrong guess!"
 
