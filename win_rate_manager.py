@@ -1,4 +1,5 @@
 import json
+import winrate_format
 
 #This class handles calculating winrates and saving it as well as loading them.
 class win_rate_manager:
@@ -19,34 +20,7 @@ class win_rate_manager:
     #Resets file to original format
     def resetFile(self):
 
-        baseContents = {
-            'Winrates' : [
-                {
-                    'difficulty' : 'easy',
-                    'games' : 0,
-                    'wins' : 0,
-                    'winrate' : 0.0
-                },
-                {
-                    'difficulty' : 'medium',
-                    'games' : 0,
-                    'wins' : 0,
-                    'winrate' : 0.0
-                },
-                {
-                    'difficulty' : 'hard',
-                    'games' : 0,
-                    'wins' : 0,
-                    'winrate' : 0.0
-                },
-                {
-                    'difficulty' : 'lol',
-                    'games' : 0,
-                    'wins' : 0,
-                    'winrate' : 0.0
-                }
-            ]
-        }
+        baseContents = winrate_format.getFormat()
         
         with open(self.file, 'w') as f:
             json.dump(baseContents, f)
