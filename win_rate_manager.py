@@ -42,10 +42,10 @@ class win_rate_manager:
 
 newJson = win_rate_manager(2, True)
 newJson.resetFile()
-newJson.updateWinRate('Easy', True)
-#string = newJson.openFile()
-#print(type(string))
-#print(string)
+#newJson.updateWinRate('Easy', True)
+string = newJson.openFile()
+print(type(string))
+print(string)
         
 
 
