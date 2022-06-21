@@ -31,14 +31,20 @@ def chooseWord():
 #Open an error window telling the user there is no internet connection
 def raiseError():
 
+    #Create the window
     root = tk.Tk()
     root.resizable(False,False)
     root.title("Error")
+
     canvas = tk.Canvas(root, height=100, width=150)
     canvas.pack()
+
     errorLabel = tk.Label(root, text="Error: No WIFI")
     errorLabel.configure(font=("Arial", 12))
     errorLabel.place(relx=0.1,rely=0.1)
+
+    #Exit button will exit whole application.
     exitButton = tk.Button(root, height=2, width=8, text="Exit", command=lambda: exit())
     exitButton.place(relx=0.2,rely=0.35)
+
     root.mainloop()
