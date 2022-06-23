@@ -117,13 +117,13 @@ def buildGameElements(game):
 
     #Create difficulty label
     global difficultyLabel
-    difficultyLabel = tk.Label(root, font="Arial", bd=4, text=winrateDisplay.difficulty.upper())
-    difficultyLabel.place(relx=0.1,rely=0.1)
+    difficultyLabel = tk.Label(root, font="Arial", bd=4, text=winrateDisplay.difficulty.upper() + " WINRATE %:")
+    difficultyLabel.place(relx=0.03,rely=0.1)
 
     #Display winrate for current difficulty
     global winrateLabel
     winrateLabel = tk.Label(root, font="Arial", bd=4, text=winrateDisplay.getWinRate())
-    winrateLabel.place(relx=0.15,rely=0.1)
+    winrateLabel.place(relx=0.2,rely=0.1)
 
 def startButtonPress(lives, difficulty):
 
@@ -190,10 +190,10 @@ def selectDifficulty():
     lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress(lolLives, "lol"))
     lolButton.place(relx=0.6, rely=0.5)
 
-    def resetData():
+def resetData():
 
-        winrateManager = win_rate_manager.win_rate_manager(None, None)
-        winrateManager.resetFile()
+    winrateManager = win_rate_manager.win_rate_manager(None, None)
+    winrateManager.resetFile()
 
 def main():
 
