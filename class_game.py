@@ -77,6 +77,7 @@ class game:
 
         if (self.guessProgress == self.gameWord):
 
+            #Could do this better, instead of having 2 constructors.
             manager = win_rate_manager.win_rate_manager(self.difficulty, True)
             manager.wonGame = True
             manager.updateWinRate()
