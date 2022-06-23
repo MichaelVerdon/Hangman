@@ -1,5 +1,6 @@
 import tkinter as tk
 import class_game
+import win_rate_manager
 
 easyLives = 14
 mediumLives = 10
@@ -20,11 +21,10 @@ def clickedSubmit(game, guess):
 
     #gameStatus = game.checkGameStatus() None object errors :(
     #gameEnd, endMessage = gameStatus
-
+    gameStatus = game.checkGameStatus()
     #Return true if game is over
-    if (game.checkGameStatus()):
+    if (gameStatus):
 
-        gameStatus = game.checkGameStatus()
         errorLabel["text"] = gameStatus[1] #Index game message, tuple unpacking worked too but kept giving none object errors.
 
         #Destroy submit button to stop more submits
@@ -72,10 +72,14 @@ def destroyGameElements():
     noButton.destroy()
     guessedLettersLabel.destroy()
     guessedLettersIndicator.destroy()
+    difficultyLabel.destroy()
+    winrateLabel.destroy()
 
 
 def buildGameElements(game):
 
+    #I probably shouldve made these widgets into another object instead of
+    #having alot of global variables. grim.
     #Enter letter widget
     global textEntry
     textEntry = tk.Entry(root, text="Enter a letter", font="Arial", bd=4)
@@ -111,11 +115,26 @@ def buildGameElements(game):
     guessedLettersIndicator = tk.Label(root, font="Arial", bd=4, text="Guessed Letters:")
     guessedLettersIndicator.place(relx=0.25,rely=0.4)
 
-def startButtonPress(lives):
+    #Create difficulty label
+    global difficultyLabel
+    difficultyLabel = tk.Label(root, font="Arial", bd=4, text=winrateDisplay.difficulty.upper())
+    difficultyLabel.place(relx=0.1,rely=0.1)
+
+    #Display winrate for current difficulty
+    global winrateLabel
+    winrateLabel = tk.Label(root, font="Arial", bd=4, text=winrateDisplay.getWinRate())
+    winrateLabel.place(relx=0.15,rely=0.1)
+
+def startButtonPress(lives, difficulty):
 
     destroyDifficultyButtons()
     global game
-    game = class_game.game(lives)
+    game = class_game.game(lives, difficulty)
+
+    #Get winrate assets
+    global winrateDisplay
+    winrateDisplay = win_rate_manager.win_rate_manager(difficulty, False)
+
     print(game.gameWord)
     buildGameElements(game)
 
@@ -125,7 +144,8 @@ def destroyDifficultyButtons():
     easyButton.destroy()
     mediumButton.destroy()
     hardButton.destroy()
-    lolButton.destroy()       
+    lolButton.destroy()
+    resetDataButton.destroy()       
 
 # Variables for screen size
 screen_width = 1280
@@ -150,21 +170,30 @@ canvas.pack()
 
 def selectDifficulty():
 
+    global resetDataButton
+    resetDataButton = tk.Button(root, text='Reset Winrate Data', font="Arial", bd=4, command=lambda: resetData())
+    resetDataButton.place(relx=0.3,rely=0.8)
+
     global easyButton
-    easyButton = tk.Button(root, text='Easy', font="Arial", bd=4, command=lambda: startButtonPress(easyLives))
+    easyButton = tk.Button(root, text='Easy', font="Arial", bd=4, command=lambda: startButtonPress(easyLives, "easy"))
     easyButton.place(relx=0.3, rely=0.5)
 
     global mediumButton
-    mediumButton = tk.Button(root, text='Medium', font="Arial", bd=4, command=lambda: startButtonPress(mediumLives))
+    mediumButton = tk.Button(root, text='Medium', font="Arial", bd=4, command=lambda: startButtonPress(mediumLives, "medium"))
     mediumButton.place(relx=0.4, rely=0.5)
 
     global hardButton
-    hardButton = tk.Button(root, text='Hard', font="Arial", bd=4, command=lambda: startButtonPress(hardLives))
+    hardButton = tk.Button(root, text='Hard', font="Arial", bd=4, command=lambda: startButtonPress(hardLives, "hard"))
     hardButton.place(relx=0.5, rely=0.5)
 
     global lolButton
-    lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress(lolLives))
+    lolButton = tk.Button(root, text='LOL', font="Arial", bd=4, command=lambda: startButtonPress(lolLives, "lol"))
     lolButton.place(relx=0.6, rely=0.5)
+
+    def resetData():
+
+        winrateManager = win_rate_manager.win_rate_manager(None, None)
+        winrateManager.resetFile()
 
 def main():
 

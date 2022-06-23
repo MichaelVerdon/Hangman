@@ -1,13 +1,15 @@
 import randomword
+import win_rate_manager
 
 class game:
 
-    def __init__(self, lives):
+    def __init__(self, lives, difficulty):
 
         self.lives = lives
         self.gameWord = randomword.chooseWord() #Using randonword.py to obtain a randomword.
         self.guessProgress = "_" * len(self.gameWord)
         self.guessedLetters = []
+        self.difficulty = difficulty
 
     #Functions to change the variables of the game
     def loseLife(self):
@@ -72,12 +74,18 @@ class game:
     #Check that the game is won/lost or still going returning an appropiate message
     def checkGameStatus(self):
 
+
         if (self.guessProgress == self.gameWord):
 
+            manager = win_rate_manager.win_rate_manager(self.difficulty, True)
+            manager.wonGame = True
+            manager.updateWinRate()
             return True, "You Won!, you have a use for something after all...."
 
         elif (self.lives <= 0):
 
+            manager = win_rate_manager.win_rate_manager(self.difficulty, False)
+            manager.updateWinRate()
             return True, ("You Lost, the word your feeble mind failed to compute was: " + self.gameWord)
 
         else:

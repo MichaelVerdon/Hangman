@@ -10,6 +10,16 @@ class win_rate_manager:
         self.wonGame = wonGame
         self.file = "winrate.pickle"
 
+    def getWinRate(self):
+
+        contents = self.openFile()
+
+        for data in contents:
+
+            if (data["difficulty"] == self.difficulty):
+
+                return data["winrate"]
+
     #Called by other functions in class, not invoked otherwise
     def resetFile(self):
 
@@ -42,6 +52,9 @@ class win_rate_manager:
         with open(self.file,'wb') as file:
             pickle.dump(winrateData, file)
 
+        testContents = self.openFile()
+        print(testContents)
+
     def calculateWinRate(self, dict):
 
         #Increment games by 1 as game was played when this is called.
@@ -63,10 +76,10 @@ class win_rate_manager:
 
 
 
-newPickle = win_rate_manager("medium", True)
-newPickle.resetFile()
-pickleContents = newPickle.openFile()
-print(pickleContents)
+#newPickle = win_rate_manager("medium", True)
+#newPickle.resetFile()
+#pickleContents = newPickle.openFile()
+#print(pickleContents)
     
 
         
