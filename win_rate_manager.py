@@ -70,7 +70,7 @@ class win_rate_manager:
 
         #Update new winrate
         newWinrate = (gamesWon/games) * 100
-        dict["winrate"] = newWinrate
+        dict["winrate"] = round(newWinrate,2)
 
         return dict
 

@@ -1,3 +1,0 @@
-- Format strings with fstrings
-- Win rate file saving for each difficulty
-- Optional: global leaderboards with winrate :)
